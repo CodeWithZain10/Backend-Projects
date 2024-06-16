@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Profile Page</title>
+</head>
+<body class="bg-gray-100">
+  <!-- Profile Section -->
+  <div class="w-full mx-auto py-6 px-4 sm:px-6 lg:px-8">
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+      <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
+        <div class="flex items-center">
+          <% if (user.profileImg) { %>
+            <img class="h-16 w-16 rounded-full" src="data:image/jpeg;base64,<%= user.profileImg.toString('base64') %>" alt="Profile picture">
+          <% } else { %>
+            <img class="h-16 w-16 rounded-full" src="/path/to/default/profile/pic.jpg" alt="Profile picture">
+          <% } %>
+          <div class="ml-4">
+            <h3 class="text-lg leading-6 font-medium text-gray-900"><%= user.username %></h3>
+            <p class="text-sm text-gray-500">Blogs: <%= user.blogs.length %></p>
+          </div>
+        </div>
+        <div class="flex space-x-4">
+          <a href="/blog/create" class="px-4 py-2 bg-green-500 text-white rounded-lg">Create Blog</a>
+          <a href="/user/logout" class="px-4 py-2 bg-red-500 text-white rounded-lg">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blogs Section -->
+  <div class="w-full mx-auto py-6 px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-wrap gap-x-10 justify-center">
+      <% if (user.blogs.length > 0) { %>
+        <% user.blogs.forEach(function (blog) { %>
+          <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-4">
+            <div class="bg-white shadow rounded-lg overflow-hidden">
+              <% if (blog.image) { %>
+                <img class="h-48 w-full object-cover" src="data:image/jpeg;base64,<%= blog.image.toString('base64') %>" alt="Blog picture">
+              <% } else { %>
+                <img class="h-48 w-full object-cover" src="/path/to/default/blog/pic.jpg" alt="Blog picture">
+              <% } %>
+              <div class="p-4 flex flex-col justify-between flex-grow">
+                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4"><%= blog.title %></h3>
+                <a href="/blog/read/<%= blog._id %>" class="px-4 py-2 bg-blue-500 text-white rounded-lg self-end">Read more</a>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      <% } else { %>
+        <h1>No Blogs Found...</h1>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>
