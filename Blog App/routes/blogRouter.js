@@ -14,7 +14,7 @@ router.get("/create", isLoggedIn, (req, res) => {
   res.render("createblog");
 });
 
-router.get("/read/:id", isLoggedIn, readBlog);
+router.get("/read/:id", readBlog);
 
 router.get("/edit/:id", isLoggedIn, getEditBlog);
 router.post("/edit/:id", isLoggedIn, upload.single("image"), postEditBlog);
